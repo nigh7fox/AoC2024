@@ -37,17 +37,10 @@ def findSmallestAndAddV2(nums):
         leftHalf.append(int(splitArr[0]))
         rightHalf.append(int(splitArr[1]))
 
-    while len(leftHalf) >= 2:
-        answer = answer + abs((min(rightHalf) - min(leftHalf)))
-        # Logs test
-        # print(f"Size lists left: {len(leftHalf)} right: {len(rightHalf)}")
-        # print(f"Popping left index: {leftHalf.index(min(leftHalf))} right index: {rightHalf.index(min(rightHalf))}")
-        # print(f"Add to answer = {min(rightHalf)} - {min(leftHalf)}")
-        # print(f"Right: {rightHalf} Left: {leftHalf}")
-        if (len(leftHalf) == 2):
-            answer = answer + abs((max(rightHalf) - max(leftHalf)))
-        leftHalf.pop(leftHalf.index(min(leftHalf)))
-        rightHalf.pop(rightHalf.index(min(rightHalf)))
+    for num in leftHalf:
+        rightHalfCounter = rightHalf.count(num)
+        simScore = rightHalfCounter * num
+        answer = answer + simScore
     return answer
 
 
@@ -58,5 +51,5 @@ def main(part):
 
 
 if __name__ == "__main__":
-    print(f"Day 1 exercise 1: {main(1)}")
-    # print(f"Day 1 exercise 2: {main(2)}")
+    # print(f"Day 1 exercise 1: {main(1)}")
+    print(f"Day 1 exercise 2: {main(2)}")
