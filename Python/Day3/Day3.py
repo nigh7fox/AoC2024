@@ -14,8 +14,6 @@ def mulAoc(numArr):
 
 def parseInput():
     answer = 0
-    cmdsArr = []
-    # print(len(cmd))
     for commands in readInput():
         cmds = re.findall(r"mul\(\d+,\d+\)", commands)
         for cmd in cmds:
