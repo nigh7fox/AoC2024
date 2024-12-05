@@ -58,17 +58,13 @@ def controlPrintQueue():
                         # print("Abort.")
                         errorsFound.append(x)
                         break
+        if x not in set(errorsFound):
+            midInt = int(len(splitPages) / 2)
+            answer = answer + int(splitPages[midInt])
         #     print(f"Page {splitPages[y]} => Can be before: {canBeBefore} Should be after: {shouldBeAfter}")
         #     print(f"Still remaning in list: {stillToGo}")
         #     print("----------------")
         # print("########## END ###########")
-    # print(set(errorsFound))
-    for i, pages in enumerate(queue):
-        splitPages = pages.split(",")
-        if i not in set(errorsFound):
-            midInt = int(len(splitPages) / 2)
-            answer = answer + int(splitPages[midInt])
-            # print(splitPages[midInt])
     return answer
 
 def main(part):
