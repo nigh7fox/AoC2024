@@ -23,19 +23,41 @@ def getPageRules(rules, pageNum):
         splitRules = str(rule).split("|")
         for r in splitRules:
             if int(r) == int(pageNum):
-                allCurrentPageRules.append(rule)
+                allCurrentPageRules.append(splitRules)
     return allCurrentPageRules
+
+
+def getBeforeRules(allCurrentPageRules, pageNum):
+    return [rule[1] for i, rule in enumerate(allCurrentPageRules) if allCurrentPageRules[i][0] == pageNum]
+
+
+def getAfterRules(allCurrentPageRules, pageNum):
+    return [rule[0] for i, rule in enumerate(allCurrentPageRules) if allCurrentPageRules[i][1] == pageNum]
 
 
 def controlPrintQueue():
     formattedQueue = formatPrintQueue()
     rules = formattedQueue[0]
     queue = formattedQueue[1]
-    for i, pages in enumerate(queue):
+    before = []
+    after = []
+    for x, pages in enumerate(queue):
         splitPages = pages.split(",")
-        print(f"Update: {i} - Page numbers: {splitPages}")
-        for page in pages.split(","):
-            print(f"Page: {page} - Rules: {getPageRules(rules, page)}")
+        print("###################")
+        print(f"Update: {x} - Page numbers: {splitPages} - Page Queue Length: {len(splitPages)}")
+        for y, page in enumerate(splitPages):
+            print(f"Page: {splitPages[y]} - Rules: {getPageRules(rules, page)} - Page Queue Index: {y}")
+            for z in range(1, len(splitPages)):
+                if y + z <= (len(splitPages) - 1):
+                    canBeBefore = getBeforeRules(getPageRules(rules, page), page)
+                    shouldBeAfter = getAfterRules(getPageRules(rules, page), page)
+                    if splitPages[y + z] in canBeBefore:
+                        print(splitPages[y + z])
+            print(f"Before: {canBeBefore} After: {shouldBeAfter}")
+                    # print(splitPages[y + z])
+                    # print(int(pages[y + z]))
+            print("----------------")
+        print("###################")
 
 
 def main(part):
