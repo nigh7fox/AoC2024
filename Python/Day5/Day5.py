@@ -1,5 +1,5 @@
 def readInput():
-    with open('test_input.txt') as f:
+    with open('input.txt') as f:
         lines = f.readlines()
     linesFormatted = [x.strip('\n') for x in lines]
     return linesFormatted
@@ -39,26 +39,37 @@ def controlPrintQueue():
     formattedQueue = formatPrintQueue()
     rules = formattedQueue[0]
     queue = formattedQueue[1]
-    before = []
-    after = []
+    errorsFound = []
+    answer = 0
     for x, pages in enumerate(queue):
         splitPages = pages.split(",")
-        print("###################")
-        print(f"Update: {x} - Page numbers: {splitPages} - Page Queue Length: {len(splitPages)}")
+        # print(f"########## Update {x + 1} ##########")
+        # print(f"Page numbers: {splitPages} - Page Queue Length: {len(splitPages)}")
         for y, page in enumerate(splitPages):
-            print(f"Page: {splitPages[y]} - Rules: {getPageRules(rules, page)} - Page Queue Index: {y}")
+            # print(f"Page: {splitPages[y]} - Rules: {getPageRules(rules, page)} - Page Queue Index: {y}")
+            stillToGo = []
             for z in range(1, len(splitPages)):
+                canBeBefore = getBeforeRules(getPageRules(rules, page), page)
+                shouldBeAfter = getAfterRules(getPageRules(rules, page), page)
                 if y + z <= (len(splitPages) - 1):
-                    canBeBefore = getBeforeRules(getPageRules(rules, page), page)
-                    shouldBeAfter = getAfterRules(getPageRules(rules, page), page)
-                    if splitPages[y + z] in canBeBefore:
-                        print(splitPages[y + z])
-            print(f"Before: {canBeBefore} After: {shouldBeAfter}")
-                    # print(splitPages[y + z])
-                    # print(int(pages[y + z]))
-            print("----------------")
-        print("###################")
-
+                    # print(f"Check against {splitPages[y + z]}")
+                    stillToGo.append(splitPages[y + z])
+                    if splitPages[y + z] in shouldBeAfter:
+                        # print("Abort.")
+                        errorsFound.append(x)
+                        break
+        #     print(f"Page {splitPages[y]} => Can be before: {canBeBefore} Should be after: {shouldBeAfter}")
+        #     print(f"Still remaning in list: {stillToGo}")
+        #     print("----------------")
+        # print("########## END ###########")
+    # print(set(errorsFound))
+    for i, pages in enumerate(queue):
+        splitPages = pages.split(",")
+        if i not in set(errorsFound):
+            midInt = int(len(splitPages) / 2)
+            answer = answer + int(splitPages[midInt])
+            # print(splitPages[midInt])
+    return answer
 
 def main(part):
     if part == 1:
