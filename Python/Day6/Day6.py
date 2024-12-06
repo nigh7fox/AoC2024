@@ -1,5 +1,5 @@
 def readInput():
-    with open('input.txt') as f:
+    with open('test_input.txt') as f:
         lines = f.readlines()
     linesFormatted = [x.strip('\n') for x in lines]
     return linesFormatted
@@ -31,85 +31,82 @@ def guardGallivant(lines):
     grid = formGridFromInput(lines)
     reachedTheEnd = False
     while reachedTheEnd is False:
-        print(f"Grid before:")
-        displayGrid(grid)
+    # for x in range(5): # RUN INDIVIDUAL TEST
+        # print(f"Grid before:")
+        # displayGrid(grid)
         for x, row in enumerate(grid):
             for y, col in enumerate(row):
                 for i in range(len(row)):
                     match lines[x][y]:
                         case "^":
-                            # Up
                             currentPosition = [x, y]
                             if (x - i) < 0:
                                 reachedTheEnd = True
                             if (x - i) >= 0:
-                                print(f"Current position {currentPosition} pointing upwards")
+                                # print(f"Current position {currentPosition} pointing upwards")
                                 nextLetterVerticalUp = lines[x - i][y]
                                 if nextLetterVerticalUp != "#":
-                                    print(f"Can move to {nextLetterVerticalUp} coordinates [{x - i}, {y}]")
-                                    print(f"Moving up 1 step")
+                                    # print(f"Can move to {nextLetterVerticalUp} coordinates [{x - i}, {y}]")
+                                    # print(f"Moving up 1 step")
                                     grid[x - i][y] = "X"
                                 else:
-                                    print(f"Found an obstacle at coordinates [{x - i}, {y}] turning 90 degrees")
-                                    print(f"Now pointing to the right")
+                                    # print(f"Found an obstacle at coordinates [{x - i}, {y}] turning 90 degrees")
+                                    # print(f"Now pointing to the right")
                                     grid[x - (i - 1)][y] = ">"
                                     break
                         case ">":
                             # Check if add the end of grid
                             if (y + i) > len(row):
                                 reachedTheEnd = True
-                            # Right
                             currentPosition = [x, y]
-                            print(f"Current position {currentPosition} pointing to the right")
+                            # print(f"Current position {currentPosition} pointing to the right")
                             if (y + i) <= len(row) - 1:
                                 nextLetterHorizontal = lines[x][y + i]
                                 if nextLetterHorizontal != "#":
-                                    print(f"Can move to {nextLetterHorizontal} coordinates [{x}, {y + i}]")
-                                    print(f"Moving up 1 step")
+                                    # print(f"Can move to {nextLetterHorizontal} coordinates [{x}, {y + i}]")
+                                    # print(f"Moving up 1 step")
                                     grid[x][y + i] = "X"
                                 else:
-                                    print(f"Found an obstacle at coordinates [{x - i}, {y}] turning 90 degrees")
-                                    print(f"Now pointing down")
+                                    # print(f"Found an obstacle at coordinates [{x - i}, {y}] turning 90 degrees")
+                                    # print(f"Now pointing down")
                                     grid[x][y + (i - 1)] = "v"
                                     break
                         case "<":
                             # Check if add the end of grid
                             if (y - i) < 0:
                                 reachedTheEnd = True
-                            # Left
                             currentPosition = [x, y]
-                            print(f"Current position {currentPosition} pointing to the left")
+                            # print(f"Current position {currentPosition} pointing to the left")
                             if (y - i) >= 0:
                                 nextLetterBackwards = lines[x][y - i]
                                 if nextLetterBackwards != "#":
-                                    print(f"Can move to {nextLetterBackwards} coordinates [{x}, {y - i}]")
-                                    print(f"Moving up 1 step")
+                                    # print(f"Can move to {nextLetterBackwards} coordinates [{x}, {y - i}]")
+                                    # print(f"Moving up 1 step")
                                     grid[x][y - i] = "X"
                                 else:
-                                    print(f"Found an obstacle at coordinates [{x}, {y - i}] turning 90 degrees")
-                                    print(f"Now pointing up")
+                                    # print(f"Found an obstacle at coordinates [{x}, {y - i}] turning 90 degrees")
+                                    # print(f"Now pointing up")
                                     grid[x][y - (i - 1)] = "^"
                                     break
                         case "v":
                             # Check if add the end of grid
                             if (x + i) > len(lines):
                                 reachedTheEnd = True
-                            # Down
                             currentPosition = [x, y]
-                            print(f"Current position {currentPosition} pointing downwards")
+                            # print(f"Current position {currentPosition} pointing downwards")
                             if (x + i) <= len(lines) - 1:
                                 nextLetterVerticalDown = lines[x + i][y]
                                 if nextLetterVerticalDown != "#":
-                                    print(f"Can move to {nextLetterVerticalDown} coordinates [{x + i}, {y}]")
-                                    print(f"Moving up 1 step")
+                                    # print(f"Can move to {nextLetterVerticalDown} coordinates [{x + i}, {y}]")
+                                    # print(f"Moving up 1 step")
                                     grid[x + i][y] = "X"
                                 else:
-                                    print(f"Found an obstacle at coordinates [{x + i}, {y - i}] turning 90 degrees")
-                                    print(f"Now pointing to the left")
+                                    # print(f"Found an obstacle at coordinates [{x + i}, {y - i}] turning 90 degrees")
+                                    # print(f"Now pointing to the left")
                                     grid[x + (i - 1)][y] = "<"
                                     break
-        print(f"Grid after:")
-        displayGrid(grid)
+        # print(f"Grid after:")
+        # displayGrid(grid)
         lines = gridToLine(grid)
     
     for line in lines:
