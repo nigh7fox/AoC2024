@@ -31,7 +31,7 @@ def findXmas():
                         nextLetterHorizontal = lines[x][y + i]
                         horizontalWord += lines[x][y + i]
                         # print(f"Next horizontal letters: {nextLetterHorizontal} coords: [{x}, {y + i}] index: {i}")
-                    # Right to left
+                    # Down
                     if (x + i) <= len(line) - 1:
                         nextLetterVerticalDown = lines[x + i][y]
                         verticalWordDown += lines[x + i][y]
@@ -41,7 +41,7 @@ def findXmas():
                         nextLetterVerticalUp = lines[x - i][y]
                         verticalWordUp += lines[x - i][y]
                         # print(f"Next vertical letters: {nextLetterVerticalUp} coords: [{x - i}, {y}] index: {i}")
-                    # Down
+                    # Right to left
                     if (y - i) >= 0:
                         nextLetterBackwards = lines[x][y - i]
                         backwardsWord += lines[x][y - i]
